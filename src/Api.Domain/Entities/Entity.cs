@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Api.Domain.Entities
 {
-    abstract class Entity
+    public abstract class Entity
     {
         [Key]
         public int Id { get; set; }
