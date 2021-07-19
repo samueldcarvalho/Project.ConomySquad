@@ -12,7 +12,13 @@ namespace Api.Domain.Entities
 
         public Usuario(string nome, string login, string senha, string email)
         {
-            try { }
+            try
+            {
+                this.Nome = nome;
+                this.Login = login;
+                this.Senha = senha;
+                this.Email = email;
+            }
             catch
             {
                 if (String.IsNullOrEmpty(nome) || String.IsNullOrWhiteSpace(nome))
@@ -27,15 +33,8 @@ namespace Api.Domain.Entities
                     throw new Exception($"Senha fraca.{Environment.NewLine}" +
                                         $"- Mínimo de 8 caracteres.{Environment.NewLine}" +
                                         $"- Usar pelo menos uma letra maiúscula e minúscula. [A-Z,a-z]{Environment.NewLine}" +
-                                        $"- Usar pelo menos um número. [1 à 9]{Environment.NewLine}" +
-                                        $"- Permitido utilização de símbolos. [$@#%&!]");
-            }
-            finally
-            {
-                this.Nome = nome;
-                this.Login = login;
-                this.Senha = senha;
-                this.Email = email;
+                                        $"- Usar pelo menos um número. [0-9]{Environment.NewLine}" +
+                                        $"- Permitido utilização de símbolos. [$#%!@]");
             }
         }
     }
