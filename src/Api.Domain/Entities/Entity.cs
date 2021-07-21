@@ -6,14 +6,14 @@ namespace Api.Domain.Entities
     public abstract class Entity
     {
         [Key]
-        public int Id { get; set; }
-        
+        public int Id { get; private set; }
+
         private DateTime? _dataCriacao;
         public DateTime? DataCriacao
         {
             get { return _dataCriacao; }
             set { _dataCriacao = (value == null ? DateTime.UtcNow : value); }
         }
-        public DateTime? DataAtualizacao { get; set; }
+        public DateTime? DataAtualizacao { get; private set; }
     }
 }

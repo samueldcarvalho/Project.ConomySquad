@@ -9,8 +9,9 @@ Voltar ao **[Início](../Readme.md)**
 - O `usuário` **deve** conter um e-mail
 - O `usuário` **deve** conter um login
 - O `usuário` **deve** conter uma senha
-- O `usuário` **pode** informar seus `gastos`
-- O `usuário` **pode** consultar seus `gastos` ou `metas`
+- O `usuário` **pode** informar seus `movimentos`
+- O `usuário` **pode** enviar uma `interação` ao `grupo`
+- O `usuário` **pode** consultar seus `movimentos` ou `metas`
 - O `usuário` **deve** estar em um `grupo`
 - O `usuário` **pode** estar em mais de um `grupo`
 - O `usuário` **pode** ser um `líder` do `grupo`
@@ -22,25 +23,35 @@ Voltar ao **[Início](../Readme.md)**
 - O `líder` **pode** adicionar ou remover `usuários` do `grupo`
 - O `líder` **pode** alterar configurações do `grupo`
 - O `líder` **pode** alterar `permissões` do `usuário`
-- O `líder` **pode** informar um `gasto` no `grupo` de outro `usuário`  
+- O `líder` **pode** informar um `movimento` no `grupo` de outro `usuário`  
 
 ## **Grupo**
 
 - O `grupo` **deve** possuir um id
 - O `grupo` **deve** possuir um nome
-- O `grupo` **deve** conter um ***dashboard*** com descritivo de `gastos` dos `usuários` e `metas` do `grupo`
+- O `grupo` **deve** conter um ***dashboard*** com descritivo de `movimentos` dos `usuários` e `metas` do `grupo`
 - O `grupo` **deve** conter mais de um `usuário`
 - O `grupo` **pode** conter mais de um `líder`
 - O `grupo` **deve** conter uma `meta`
 - O `grupo` **pode** conter mais de uma `meta`
 
-## **Gastos**
-- O `gasto` **deve** possuir um id
-- O `gasto` **deve** pertencer a um `usuário`
-- O `gasto` **deve** ser informado pelo `usuário`
+## **Movimento**
+- O `movimento` **deve** possuir um id
+- O `movimento` **deve** possuir um **valor**
+- O `movimento` **pode** possuir uma descrição
+- O `movimento` **não pode** possuir valor zerado 
+- O `movimento` **deve** pertencer a um `usuário`
+- O `movimento` **deve** ser informado pelo `usuário`
+
+## **Interação**
+- A `interação` **deve** possuir um id
+- A `interação` **deve** possuir um `usuário` como responsável
+- A `interação` **deve** possuir uma descrição
+- A `interação` **pode** mencionar outros usuário
+- A `interação` **pode** possuir um id
 
 ## **Metas**
-
+- A `meta` **deve** possuir um id
 
 
 

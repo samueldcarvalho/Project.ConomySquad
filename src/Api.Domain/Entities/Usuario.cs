@@ -5,12 +5,15 @@ namespace Api.Domain.Entities
 {
     public class Usuario : Entity
     {
+        public Guid IDentityUsuario { get; private set; }
         public string Nome { get; private set; }
         public string Login { get; private set; }
         public string Senha { get; private set; }
+        public string[] Grupo { get; private set; }
         public string Email { get; private set; }
 
-        public Usuario(string nome, string login, string senha, string email)
+
+        public Usuario(string IDGrupo, string nome, string login, string senha, string email)
         {
             if (String.IsNullOrEmpty(nome) || String.IsNullOrWhiteSpace(nome))
                 throw new Exception("Digite um nome para continuar.");
@@ -26,6 +29,10 @@ namespace Api.Domain.Entities
                                     $"- Usar pelo menos uma letra maiúscula e minúscula. [A-Z,a-z]{Environment.NewLine}" +
                                     $"- Usar pelo menos um número. [0-9]{Environment.NewLine}" +
                                     $"- Permitido utilização de símbolos. [$#%!@]");
+            if (string.IsNullOrEmpty(IDGrupo) || string.IsNullOrWhiteSpace(IDGrupo))
+                throw new Exception("Grupo não informado.");
+
+            ///SETS
             this.Nome = nome;
             this.Login = login;
             this.Senha = senha;
