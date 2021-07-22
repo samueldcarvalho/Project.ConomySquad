@@ -41,7 +41,7 @@ namespace Api.Domain.Entities
             this.Senha = senha;
             this.Email = email;
         }
-        public void TornarLider(Grupo grupo)
+        public void TornarLiderGrupo(Grupo grupo)
         {
             if (grupo.Lideres.Any(u => u.Id == this.Id))
             {
@@ -51,7 +51,7 @@ namespace Api.Domain.Entities
         public void AtribuirGrupo(Grupo grupo)
         {
             Grupos.Add(grupo);
-            this.TornarLider(grupo);
+            this.TornarLiderGrupo(grupo);
         }
 
         public void Interagir(Interacao tipoInteracao, string descricao, Grupo grupo, decimal valor)
@@ -75,9 +75,17 @@ namespace Api.Domain.Entities
                     break;
             }
         }
-        public void RemoverInteracao(Grupo grupo)
+        public void RemoverInteracao(Grupo grupo, int idInteracao)
         {
+            if (Grupos.Any(a => a.Id != grupo.Id))
+                throw new Exception($"Você não pode remover uma interação do grupo {grupo.Nome} pois você não é membro.");
+            if (grupo.Interacoes.Any(b => b.Id != idInteracao))
+                throw new Exception($"A interação {idInteracao} não existe na timeline do grupo {grupo.Id}.");
+            if (Interacoes.Any(d => d.Id != idInteracao))
+                throw new Exception($"Você não pode remover uma interação que não pertence a você.");
 
+            var InteracaoExiste = grupo.Interacoes.FirstOrDefault(c => c.Id == idInteracao);
+            grupo.Interacoes.Remove(InteracaoExiste);
         }
     }
 }

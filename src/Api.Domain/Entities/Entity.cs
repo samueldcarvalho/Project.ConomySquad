@@ -6,7 +6,7 @@ namespace Api.Domain.Entities
     public abstract class Entity
     {
         [Key]
-        protected int Id { get; private set; }
+        public int Id { get; private set; }
         private DateTime? _dataCriacao;
         public DateTime? DataCriacao
         {

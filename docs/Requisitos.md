@@ -29,19 +29,11 @@ Voltar ao **[Início](../Readme.md)**
 
 - O `grupo` **deve** possuir um id
 - O `grupo` **deve** possuir um nome
-- O `grupo` **deve** conter um ***dashboard*** com descritivo de `movimentos` dos `usuários` e `metas` do `grupo`
+- O `grupo` **deve** conter uma ***timeline*** com as respectivas `interações` dos `usuários` e `metas` do `grupo`
 - O `grupo` **deve** conter mais de um `usuário`
 - O `grupo` **pode** conter mais de um `líder`
 - O `grupo` **deve** conter uma `meta`
 - O `grupo` **pode** conter mais de uma `meta`
-
-## **Movimento**
-- O `movimento` **deve** possuir um id
-- O `movimento` **deve** possuir um **valor**
-- O `movimento` **pode** possuir uma descrição
-- O `movimento` **não pode** possuir valor zerado 
-- O `movimento` **deve** pertencer a um `usuário`
-- O `movimento` **deve** ser informado pelo `usuário`
 
 ## **Interação**
 - A `interação` **deve** possuir um id
@@ -50,6 +42,14 @@ Voltar ao **[Início](../Readme.md)**
 - A `interação` **pode** mencionar outros usuário
 - A `interação` **pode** possuir um id
 
+## **Movimento : Interação**
+- O `movimento` **deve** possuir um **valor**
+- O `movimento` **não pode** possuir valor zerado
+- O `movimento` **pode** possuir uma descrição
+
+## **Comentario : Interação**
+- O `comentário` **deve** possuir uma descrição
+ 
 ## **Metas**
 - A `meta` **deve** possuir um id
 
