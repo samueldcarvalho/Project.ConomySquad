@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Api.Domain.Entities
 {
@@ -9,11 +11,12 @@ namespace Api.Domain.Entities
         public string Nome { get; private set; }
         public string Login { get; private set; }
         public string Senha { get; private set; }
-        public string[] Grupo { get; private set; }
         public string Email { get; private set; }
+        public List<Grupo> Grupos { get; private set; }
+        public List<Grupo> GruposLider { get; private set; }
 
 
-        public Usuario(string IDGrupo, string nome, string login, string senha, string email)
+        public Usuario(string nome, string login, string senha, string email, string IDGrupo)
         {
             if (String.IsNullOrEmpty(nome) || String.IsNullOrWhiteSpace(nome))
                 throw new Exception("Digite um nome para continuar.");
@@ -37,7 +40,20 @@ namespace Api.Domain.Entities
             this.Login = login;
             this.Senha = senha;
             this.Email = email;
+        }
 
+
+        public void TornarLider(Grupo grupo)
+        {
+            if (grupo.Lideres.Any(u => u.Id == this.Id))
+            {
+                GruposLider.Add(grupo);
+            }
+        }
+        public void AtribuirGrupo(Grupo grupo)
+        {
+            Grupos.Add(grupo);
+            this.TornarLider(grupo);
         }
     }
 }
