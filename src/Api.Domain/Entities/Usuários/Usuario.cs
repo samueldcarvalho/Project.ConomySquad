@@ -7,15 +7,18 @@ namespace Api.Domain.Entities
 {
     public class Usuario : Entity
     {
-        public Guid IDentityUsuario { get; private set; }
+        public string KeyRefUsuario { get; private set; }
         public string Nome { get; private set; }
         public string Login { get; private set; }
         public string Senha { get; private set; }
         public string Email { get; private set; }
+        public decimal CarteiraUsuario { get; private set; }
         public List<Grupo> Grupos { get; private set; }
         public List<Grupo> GruposLider { get; private set; }
         public List<Interacao> Interacoes;
 
+
+        //CONSTRUTOR E MÉTODOS PRIMÁRIOS
         public Usuario(string nome, string login, string senha, string email, string IDGrupo)
         {
             if (String.IsNullOrEmpty(nome) || String.IsNullOrWhiteSpace(nome))
@@ -36,39 +39,41 @@ namespace Api.Domain.Entities
                 throw new Exception("Grupo não informado.");
 
             ///SETS
+            RetornarKeyRefUsuario();
             this.Nome = nome;
             this.Login = login;
             this.Senha = senha;
             this.Email = email;
         }
-        public void TornarLiderGrupo(Grupo grupo)
+        public void RetornarKeyRefUsuario()
         {
-            if (grupo.Lideres.Any(u => u.Id == this.Id))
+            char[] _caracteres = "qwertyuiopasdfghjklzxcvbnm0123456789".ToCharArray();
+            Random r = new Random();
+            string _randomID = "";
+
+            for (int i = 0; i < 5; i++)
             {
-                GruposLider.Add(grupo);
+                _randomID += _caracteres[r.Next(0, 35)].ToString();
             }
-        }
-        public void AtribuirGrupo(Grupo grupo)
-        {
-            Grupos.Add(grupo);
-            this.TornarLiderGrupo(grupo);
+            KeyRefUsuario = _randomID;
         }
 
-        public void Interagir(Interacao tipoInteracao, string descricao, Grupo grupo, decimal valor)
+        //MÉTODOS E AÇÕES DO USUÁRIO
+        public void Interagir(string tipoInteracao, string descricao, Grupo grupo, decimal valor)
         {
             if (string.IsNullOrWhiteSpace(descricao) || string.IsNullOrEmpty(descricao))
             {
                 descricao = null;
             }
 
-            switch (tipoInteracao.tipo)
+            switch (tipoInteracao)
             {
-                case Interacao.TipoInteracao.movimento:
+                case "movimento":
                     var interacao1 = new Movimento(descricao, valor, this, grupo);
                     Interacoes.Add(interacao1);
                     grupo.Interacoes.Add(interacao1);
                     break;
-                case Interacao.TipoInteracao.comentario:
+                case "comentario":
                     var interacao2 = new Comentario(descricao, this, grupo);
                     Interacoes.Add(interacao2);
                     grupo.Interacoes.Add(interacao2);
@@ -85,7 +90,23 @@ namespace Api.Domain.Entities
                 throw new Exception($"Você não pode remover uma interação que não pertence a você.");
 
             var InteracaoExiste = grupo.Interacoes.FirstOrDefault(c => c.Id == idInteracao);
+
             grupo.Interacoes.Remove(InteracaoExiste);
+            this.Interacoes.Remove(InteracaoExiste);
+        }
+
+        //MÉTODOS E AÇÕES : GRUPO
+        public void TornarLiderGrupo(Grupo grupo)
+        {
+            if (grupo.Lideres.Any(u => u.Id == this.Id))
+            {
+                this.GruposLider.Add(grupo);
+            }
+        }
+        public void AtribuirGrupo(Grupo grupo)
+        {
+            Grupos.Add(grupo);
+            this.TornarLiderGrupo(grupo);
         }
     }
 }
