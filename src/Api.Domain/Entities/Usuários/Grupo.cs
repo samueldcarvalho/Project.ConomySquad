@@ -9,6 +9,7 @@ namespace Api.Domain.Entities
         public string Nome { get; private set; }
         public List<Usuario> Usuarios { get; private set; }
         public List<Usuario> Lideres { get; private set; }
+        public List<Interacao> Interacoes { get; set; }
         public decimal Meta { get; private set; }
 
         public Grupo() : base()

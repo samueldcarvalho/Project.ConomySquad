@@ -14,7 +14,7 @@ namespace Api.Domain.Entities
         public string Email { get; private set; }
         public List<Grupo> Grupos { get; private set; }
         public List<Grupo> GruposLider { get; private set; }
-
+        public List<Interacao> Interacoes;
 
         public Usuario(string nome, string login, string senha, string email, string IDGrupo)
         {
@@ -41,8 +41,6 @@ namespace Api.Domain.Entities
             this.Senha = senha;
             this.Email = email;
         }
-
-
         public void TornarLider(Grupo grupo)
         {
             if (grupo.Lideres.Any(u => u.Id == this.Id))
@@ -54,6 +52,32 @@ namespace Api.Domain.Entities
         {
             Grupos.Add(grupo);
             this.TornarLider(grupo);
+        }
+
+        public void Interagir(Interacao tipoInteracao, string descricao, Grupo grupo, decimal valor)
+        {
+            if (string.IsNullOrWhiteSpace(descricao) || string.IsNullOrEmpty(descricao))
+            {
+                descricao = null;
+            }
+
+            switch (tipoInteracao.tipo)
+            {
+                case Interacao.TipoInteracao.movimento:
+                    var interacao1 = new Movimento(descricao, valor, this, grupo);
+                    Interacoes.Add(interacao1);
+                    grupo.Interacoes.Add(interacao1);
+                    break;
+                case Interacao.TipoInteracao.comentario:
+                    var interacao2 = new Comentario(descricao, this, grupo);
+                    Interacoes.Add(interacao2);
+                    grupo.Interacoes.Add(interacao2);
+                    break;
+            }
+        }
+        public void RemoverInteracao(Grupo grupo)
+        {
+
         }
     }
 }
