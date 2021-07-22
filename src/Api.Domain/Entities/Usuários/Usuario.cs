@@ -89,7 +89,22 @@ namespace Api.Domain.Entities
             if (Interacoes.Any(d => d.Id != idInteracao))
                 throw new Exception($"Você não pode remover uma interação que não pertence a você.");
 
+            var tipoInteracao = Interacoes.FirstOrDefault(i => i.Id == idInteracao);
+            string strTipoInteracao = "";
+            if (tipoInteracao.tipo == Interacao.TipoInteracao.movimento)
+                strTipoInteracao = "movimento";
+            if (tipoInteracao.tipo == Interacao.TipoInteracao.comentario)
+                strTipoInteracao = "comentario";
+
+            switch (strTipoInteracao)
+            {
+                case "movimento":
+                    break;
+                case "comentario":
+                    break;
+            }
             var InteracaoExiste = grupo.Interacoes.FirstOrDefault(c => c.Id == idInteracao);
+
 
             grupo.Interacoes.Remove(InteracaoExiste);
             this.Interacoes.Remove(InteracaoExiste);
