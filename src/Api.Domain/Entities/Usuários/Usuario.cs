@@ -19,7 +19,7 @@ namespace Api.Domain.Entities
 
 
         //CONSTRUTOR E MÉTODOS PRIMÁRIOS
-        public Usuario(string nome, string login, string senha, string email, string IDGrupo)
+        public Usuario(string nome, string login, string senha, string email, decimal valorCarteira,string IDGrupo)
         {
             if (String.IsNullOrEmpty(nome) || String.IsNullOrWhiteSpace(nome))
                 throw new Exception("Digite um nome para continuar.");
@@ -47,15 +47,15 @@ namespace Api.Domain.Entities
         }
         public void RetornarKeyRefUsuario()
         {
-            char[] _caracteres = "qwertyuiopasdfghjklzxcvbnm0123456789".ToCharArray();
+            char[] caracteres = "qwertyuiopasdfghjklzxcvbnm0123456789".ToCharArray();
             Random r = new Random();
-            string _randomID = "";
+            string randomID = "";
 
             for (int i = 0; i < 5; i++)
             {
-                _randomID += _caracteres[r.Next(0, 35)].ToString();
+                randomID += caracteres[r.Next(0, 35)].ToString();
             }
-            KeyRefUsuario = _randomID;
+            KeyRefUsuario = randomID;
         }
 
         //MÉTODOS E AÇÕES DO USUÁRIO
